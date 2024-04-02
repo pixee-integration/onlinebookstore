@@ -14,6 +14,7 @@ import com.bittercode.model.UserRole;
 import com.bittercode.util.StoreUtil;
 
 public class CheckoutServlet extends HttpServlet {
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType(BookStoreConstants.CONTENT_TYPE_TEXT_HTML);

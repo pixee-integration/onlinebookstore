@@ -17,6 +17,7 @@ import com.bittercode.util.StoreUtil;
 
 public class ErrorHandlerServlet extends HttpServlet {
 
+    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType("text/html");

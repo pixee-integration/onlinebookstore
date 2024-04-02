@@ -20,6 +20,7 @@ public class SellerLoginServlet extends HttpServlet {
 
     UserService userService = new UserServiceImpl();
 
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType(BookStoreConstants.CONTENT_TYPE_TEXT_HTML);
