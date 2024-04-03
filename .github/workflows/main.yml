@@ -4,34 +4,49 @@ on:
     inputs:
       branch:
         description: branch
-      
+
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0  
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: 17
           distribution: 'zulu' 
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Corrected secret name
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=onlinebook-store_java-application
+
+  upload:
+    name: Upload Sonar Results to Pixeebot
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'check_run' && github.event.check_run.name == 'SonarCloud Code Analysis' }}
+    steps:
+      - uses: pixee/upload-tool-results-action@v1
+        with:
+          tool: sonar
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
