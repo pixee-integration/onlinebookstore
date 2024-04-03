@@ -1,9 +1,8 @@
 name: SonarCloud scan
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: branch
+  pull_request:
+       branches:
+          - master
 
 jobs:
   build:
@@ -41,12 +40,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=onlinebook-store_java-application
 
-  upload:
-    name: Upload Sonar Results to Pixeebot
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'check_run' && github.event.check_run.name == 'SonarCloud Code Analysis' }}
-    steps:
-      - uses: pixee/upload-tool-results-action@v1
-        with:
-          tool: sonar
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
