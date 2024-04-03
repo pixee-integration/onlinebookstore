@@ -21,6 +21,7 @@ public class ReceiptServlet extends HttpServlet {
     BookService bookService = new BookServiceImpl();
 
     //NOT_IN_USED
+    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType(BookStoreConstants.CONTENT_TYPE_TEXT_HTML);
