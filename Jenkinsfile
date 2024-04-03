@@ -5,7 +5,7 @@ pipeline {
            	    steps {  
               	    echo "cloning repository" 
                     echo "checkout code"
-                    echo "checkout branch"
+                    echo "checkout branch 1"
               	    echo "repo cloned successfully"  
               	    }  
          	    } 
