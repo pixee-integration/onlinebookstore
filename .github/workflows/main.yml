@@ -40,3 +40,15 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=onlinebook-store_java-application
 
+  share:
+    name: Upload Sonar Results to Pixeebot
+    runs-on: ubuntu-latest
+    if: ${{ github.event.check_run.name == 'SonarCloud Code Analysis' }}
+    permissions:
+      id-token: write
+    steps:
+      - uses: pixee/upload-tool-results-action@v1
+        with:
+          tool: sonar
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+
