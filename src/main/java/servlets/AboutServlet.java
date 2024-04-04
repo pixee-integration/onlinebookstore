@@ -14,30 +14,9 @@ import com.bittercode.util.StoreUtil;
 //Http Servlet extended class for showing the about information
 public class AboutServlet extends HttpServlet {
 
-    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-    // Handle request processing
-    // For example, read request parameters, perform business logic, etc.
-    
-    // Call method to render HTML response
-    renderHTML(res);
-}
-
-private void renderHTML(HttpServletResponse res) throws IOException {
-    PrintWriter pw = res.getWriter();
-    res.setContentType("text/html");
-
-    // Generate HTML content here
-    pw.println("<html>");
-    pw.println("<head><title>Sample Page</title></head>");
-    pw.println("<body>");
-    pw.println("<h1>Hello, World!</h1>");
-    pw.println("</body>");
-    pw.println("</html>");
-
-    // Ensure proper resource cleanup
-    pw.close();
-}
+        PrintWriter pw = res.getWriter();
+        res.setContentType("text/html");
         //If the store is logged in as customer or seller show about info
         if (StoreUtil.isLoggedIn(UserRole.CUSTOMER, req.getSession())) {
             RequestDispatcher rd = req.getRequestDispatcher("CustomerHome.html");
