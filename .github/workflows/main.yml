@@ -1,8 +1,9 @@
 name: SonarCloud scan
 on:
-  pull_request:
-       branches:
-          - master
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: branch
 
 jobs:
   build:
