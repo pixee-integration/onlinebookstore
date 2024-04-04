@@ -1,9 +1,12 @@
-name: SonarCloud scan
+name: SonarCloud scan and Fix Sonar Issues with Pixeebot
+
 on:
   workflow_dispatch:
     inputs:
       branch:
         description: branch
+  check_run:
+    types: [completed]
 
 jobs:
   build:
@@ -44,7 +47,7 @@ jobs:
   share:
     name: Upload Sonar Results to Pixeebot
     runs-on: ubuntu-latest
-    if: ${{ github.event.check_run.name == 'SonarCloud Code Analysis' }}
+    if: ${{ github.event_name == 'check_run' && github.event.check_run.name == 'SonarCloud Code Analysis' }}
     permissions:
       id-token: write
     steps:
@@ -52,4 +55,3 @@ jobs:
         with:
           tool: sonar
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-
