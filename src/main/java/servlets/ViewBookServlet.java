@@ -22,7 +22,6 @@ public class ViewBookServlet extends HttpServlet {
     // book service for database operations and logics
     BookService bookService = new BookServiceImpl();
 
-    @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType("text/html");
